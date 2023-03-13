@@ -7,6 +7,17 @@ const validateProductById = async (id) => {
   return { type: null, message: '' };
 };
 
+const validateProductName = async (productName) => {
+  if (!productName) return { type: 'NAME_NOT_DEFINED', message: '"name" is required' };
+  if (productName.length < 5) {
+    return {
+      type: 'WRONG_NAME_LENGHT', message: '"name" length must be at least 5 characters long',
+    };
+  }
+  return { type: null, message: '' };
+};
+
 module.exports = {
   validateProductById,
+  validateProductName,
 };

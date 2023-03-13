@@ -21,7 +21,8 @@ const addProduct = async (req, res) => {
   const { name } = req.body;
   const { type, message } = await productsService.addProduct(name);
 
-  if (type) return res.status(404).json('PRODUCT_NOT_ADDED');
+  if (type === 'NAME_NOT_DEFINED') return res.status(400).json({ message });
+  if (type === 'WRONG_NAME_LENGHT') return res.status(422).json({ message });
 
   return res.status(201).json(message);
 };
