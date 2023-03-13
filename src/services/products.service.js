@@ -1,4 +1,5 @@
 const { productsModel } = require('../models');
+const { validateProductById } = require('./validations/productValidations');
 
 const getProducts = async () => {
   const products = await productsModel.getProducts();
@@ -7,6 +8,10 @@ const getProducts = async () => {
 
 const getProductById = async (productId) => {
   const product = await productsModel.getProductById(productId);
+  const error = await validateProductById(productId);
+
+  if (error.type) return error;
+  
   return { type: null, message: product };
 };
 
