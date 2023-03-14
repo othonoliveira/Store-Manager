@@ -14,9 +14,12 @@ const getProductById = async ({ productId }) => {
   return product;
 };
 
-const allIds = async () => {
-  const productsIds = await connection.execute('SELECT id FROM products');
-  const result = Object.values(JSON.parse(JSON.stringify(productsIds[0])));
+const productsIds = async () => {
+  const ids = await connection.execute(
+    'SELECT id FROM products',
+  );
+  const result = Object.values(JSON
+    .parse(JSON.stringify(ids[0])));
   return result.map((product) => product.id);
 };
 
@@ -57,7 +60,7 @@ module.exports = {
   getAllProducts,
   getProductById,
   createProduct,
-  allIds,
+  productsIds,
   updateProduct,
   deleteProduct,
   searchProduct,
