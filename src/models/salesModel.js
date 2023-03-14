@@ -57,7 +57,7 @@ const updateSale = async (saleId, updateData) => {
   const valuesArray = updateData.map((sale) => [saleId, sale.productId, sale.quantity]).flat();
   const [updatedSale] = await connection.execute(
     `INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES ${values}`,
-    valuesArray,
+    [...valuesArray],
   );
   return camelize(updatedSale);
 };
