@@ -32,13 +32,18 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3000/products/",
-    "url": "http://localhost:3000/products/1/",
-    "method": "GET",
+    "url": "http://localhost:3000/sales/",
+    "method": "POST",
     "sortNum": 0,
     "created": "2023-03-12T22:39:49.427Z",
-    "modified": "2023-03-13T00:12:20.907Z",
+    "modified": "2023-03-14T03:55:46.708Z",
     "headers": [],
     "params": [],
+    "body": {
+      "type": "json",
+      "raw": "[\r\n  {\r\n    \"productId\": 3,\r\n    \"quantity\": 1\r\n  },\r\n  {\r\n    \"productId\": 2,\r\n    \"quantity\": 0\r\n  }\r\n]",
+      "form": []
+    },
     "tests": []
   },
   {
@@ -60,16 +65,49 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3000/products/3/",
-    "url": "http://localhost:3000/products/",
-    "method": "POST",
+    "url": "http://localhost:3000/products/4/",
+    "method": "GET",
     "sortNum": 0,
     "created": "2023-03-13T00:29:30.856Z",
-    "modified": "2023-03-13T02:45:34.715Z",
+    "modified": "2023-03-14T02:17:26.399Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "05192d3c-2e93-4e32-ac59-2d38f9d21128",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/sales/",
+    "url": "http://localhost:3000/sales/",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-03-14T04:00:37.810Z",
+    "modified": "2023-03-14T04:00:37.810Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"sd\"\n}",
+      "raw": "{\r\n  \"id\": 3,\r\n  \"itemsSold\": [\r\n    {\r\n      \"productId\": 1,\r\n      \"quantity\": 1\r\n    },\r\n    {\r\n      \"productId\": 2,\r\n      \"quantity\": 5\r\n    }\r\n  ]\r\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "23dbc87f-e87b-422b-810a-15783e0472d9",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/sales/",
+    "url": "http://localhost:3000/sales/",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-03-14T04:01:16.694Z",
+    "modified": "2023-03-14T04:12:44.419Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\r\n  \"id\": 3,\r\n  \"itemsSold\": [\r\n    {\r\n      \"quantity\": 1\r\n    },\r\n    {\r\n      \"productId\": 2,\r\n      \"quantity\": 0\r\n    }\r\n  ]\r\n}",
       "form": []
     },
     "tests": []
