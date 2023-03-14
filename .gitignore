@@ -213,7 +213,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+SELECT * FROM StoreManager.sales_products WHERE sale_id = ?
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
