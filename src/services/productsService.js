@@ -14,16 +14,16 @@ const getAllProducts = async () => {
   return products;
 };
 
-const getProductById = async (productId) => {
-  const { error } = idSchema.validate(productId);
-  if (error) {
-    return {
-      status: 400,
-      message: error.message,
-    };
-  }
+const getProductById = async ({ id }) => {
+  // const { error } = idSchema.validate(id);
+  // if (error) {
+  //   return {
+  //     status: 404,
+  //     message: 'Product not found',
+  //   };
+  // }
 
-  const product = await productsModel.getProductById(productId);
+  const product = await productsModel.getProductById(id);
   if (product.length < 1) {
     return {
       status: 404,
@@ -35,18 +35,15 @@ const getProductById = async (productId) => {
 };
 
 const createProduct = async (productName) => {
-  const { error } = productSchema.validate({ productName });
-  if (error) {
-    return {
-      status: 400,
-      message: error.message,
-    };
+  if (!productName) return { message: '"name" is required' };
+  if (productName.length < 5) {
+    return { message: '"name" length must be at least 5 characters long' };
   }
 
   const productId = await productsModel.createProduct(productName);
   return {
     status: 201,
-    product: { productId, productName },
+    product: { id: productId, name: productName },
   };
 };
 
