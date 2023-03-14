@@ -1,10 +1,6 @@
 const Joi = require('joi');
 const productsModel = require('../models/productsModel');
 
-const idSchema = Joi.object({
-  id: Joi.number().min(1).required(),
-});
-
 const productSchema = Joi.object({
   name: Joi.string().min(5).max(45).required(),
 });
