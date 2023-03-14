@@ -7,7 +7,7 @@ const saleSchema = Joi.object({
   quantity: Joi.number().min(1).required(),
 });
 
-const getAllProducts = async () => {
+const getAllSales = async () => {
   const sales = await salesModel.getAllSales();
   return sales;
 };
@@ -89,7 +89,7 @@ const updateSale = async (saleId, updateInfo) => {
 };
 
 module.exports = {
-  getAllProducts,
+  getAllSales,
   createSale,
   getSaleById,
   deleteSale,
