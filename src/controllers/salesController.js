@@ -19,7 +19,8 @@ const getSaleById = async (req, res) => {
 };
 
 const createSale = async (req, res) => {
-  const sales = await salesService.create(req.body);
+  const products = req.body;
+  const sales = await salesService.createSale(products);
   if (!sales.message) return res.status(201).json(sales);
   if (sales.message.includes('greater')) {
     return res.status(422)

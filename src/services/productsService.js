@@ -1,9 +1,12 @@
-const Joi = require('joi');
 const productsModel = require('../models/productsModel');
 
-const productSchema = Joi.object({
-  name: Joi.string().min(5).max(45).required(),
-});
+const validateInfo = (productName) => {
+  if (!productName) return { message: '"name" is required' };
+  if (productName.length < 5) {
+    return { message: '"name" length must be at least 5 characters long' };
+  }
+  return null;
+};
 
 const getAllProducts = async () => {
   const products = await productsModel.getAllProducts();
@@ -11,14 +14,6 @@ const getAllProducts = async () => {
 };
 
 const getProductById = async ({ id }) => {
-  // const { error } = idSchema.validate(id);
-  // if (error) {
-  //   return {
-  //     status: 404,
-  //     message: 'Product not found',
-  //   };
-  // }
-
   const product = await productsModel.getProductById(id);
   if (product.length < 1) {
     return {
@@ -44,14 +39,14 @@ const createProduct = async (productName) => {
 };
 
 const updateProduct = async (productId, productName) => {
-  const { error } = productSchema.validate({ productName });
+  const error = await validateInfo(productName);
   if (error) {
-    return { message: error.message };
+    return error;
   }
-
-  const updatedProduct = await getProductById({ productId });
-  if (updatedProduct.message) {
-    return updatedProduct;
+  
+  const updatedProduct = await productsModel.getProductById(productId);
+  if (updatedProduct.length < 1) {
+    return { message: 'Product not found' };
   }
 
   const newProduct = { productId, productName };

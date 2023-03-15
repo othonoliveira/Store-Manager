@@ -31,10 +31,10 @@ const createProduct = async (productName) => {
   return addedProduct.insertId;
 };
 
-const updateProduct = async ({ prodctId, productName }) => {
+const updateProduct = async ({ productId, productName }) => {
   const [updatedProduct] = await connection.execute(
     'UPDATE products SET name = ? WHERE id = ?',
-    [productName, prodctId],
+    [productName, productId],
   );
   return camelize(updatedProduct);
 };
@@ -52,7 +52,6 @@ const searchProduct = async (productName) => {
     'SELECT name FROM products WHERE name LIKE "?%"',
     [productName],
   );
-  console.log(searchedProduct);
   return searchedProduct;
 };
 

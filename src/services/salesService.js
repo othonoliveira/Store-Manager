@@ -42,7 +42,7 @@ const createSale = async (sales) => {
 
   const saleId = await salesModel.createSale();
   const promise = sales.map(async (sale) => {
-    await salesModel.createsale(sale, saleId);
+    await salesModel.itemsSold(sale, saleId);
   });
 
   await Promise.all(promise);

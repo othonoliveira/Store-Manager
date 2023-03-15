@@ -36,7 +36,9 @@ const createProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
-  const { message, status } = await productsService.updateProduct(id, name);
+  const { message } = await productsService.updateProduct(id, name);
+
+  console.log(message);
 
   if (message) {
     if (message.includes('length')) {
@@ -45,7 +47,7 @@ const updateProduct = async (req, res) => {
     if (message.includes('required')) {
       return res.status(400).json({ message });
     }
-    return res.status(status).json({ message });
+    return res.status(404).json({ message });
   }
 
   return res.status(200).json({ id, name });

@@ -14,7 +14,7 @@ const getAllSales = async () => {
 
 const getSaleById = async (id) => {
   const [sale] = await connection.execute(
-    `SELECT date, product_id, quantity FROM StoreManager.sales
+    `SELECT date, product_id, quantity FROM sales
     AS sales
     INNER JOIN StoreManager.sales_products as sales_products
     on sales.id = sales_products.sale_id 
@@ -29,6 +29,7 @@ const createSale = async () => {
   const [sale] = await connection.execute(
     'INSERT INTO StoreManager.sales (date) VALUES (NOW())',
   );
+  console.log(sale);
   return sale.insertId;
 };
 
