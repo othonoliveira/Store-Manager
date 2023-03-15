@@ -8,60 +8,56 @@ const { expect } = chai;
 const sales = [
   {
     saleId: 1,
-    date: "2023-02-15T01:00:50.000Z",
+    date: "2023-03-14T11:35:50.000Z",
     productId: 1,
-    quantity: 5,
+    quantity: 7,
   },
   {
     productId: 2,
-    quantity: 15,
+    quantity: 11,
   },
   {
     productId: 1,
-    quantity: 15,
+    quantity: 3,
   },
 ];
 
-describe("Testing salesModel", function () {
-  it("Testing get all", async function () {
+describe("Sales Model Tests", function () {
+  it("should get all sales", async function () {
     sinon.stub(connection, "execute").resolves([sales]);
-    const result = await salesModel.getAll();
-    expect(result).to.be.deep.equal(sales);
+
+    const response = await salesModel.getAllProducts();
+    expect(response).to.be.deep.equal(sales);
   });
 
-  it("Testing getSaleById", async function () {
+  it("should get sales by id", async function () {
     sinon.stub(connection, "execute").resolves([sales[0]]);
-    const result = await salesModel.getSaleById(1);
-    expect(result).to.be.deep.equal(sales[0]);
+
+    const response = await salesModel.getSaleById(1);
+    expect(response).to.be.deep.equal(sales[0]);
   });
 
-  it("Testing createSale", async function () {
-    sinon.stub(connection, "execute").resolves([{ insertId: 3 }]);
-    const result = await salesModel.createSale(sales[1]);
-    expect(result).to.be.deep.equal(3);
+  it("should save the products there were bought", async function () {
+    sinon.stub(connection, "execute").resolves(sales[2]);
+
+    const response = await salesModel.itemsSold(sales[2]);
+    expect(response).to.be.deep.equal(sales[2]);
   });
 
-  it("Testing create", async function () {
-    sinon.stub(connection, "execute").resolves(sales[1]);
-    const result = await salesModel.create(sales[1]);
-    expect(result).to.be.deep.equal(sales[1]);
-  });
-
-  it("Testing delete", async function () {
+  it("should delet the sale", async function () {
     sinon.stub(connection, "execute").resolves();
-    const result = await salesModel.deleteSale(1);
-    expect(result).to.be.equal("done");
+
+    const response = await salesModel.deleteSale(1);
+    expect(response).to.be.equal("done");
   });
 
-  it("Testing update", async function () {
-    sinon.stub(connection, "execute").resolves(sales);
-    const result = await salesModel.update(1, sales);
-    expect(result).to.be.deep.equal({
-      saleId: 1,
-      date: "2023-02-15T01:00:50.000Z",
-      productId: 1,
-      quantity: 5,
-    });
+  it("should create sale", async function () {
+    sinon.stub(connection, "execute").resolves([{
+      insertId: 3
+    }]);
+
+    const response = await salesModel.createSale(sales[1]);
+    expect(response).to.be.deep.equal(3);
   });
 
   afterEach(() => {
