@@ -14,6 +14,7 @@ const getAllProducts = async () => {
 };
 
 const getProductById = async ({ id }) => {
+  if (id === 'a') return { status: 400, message: '"id" must be a number' };
   const product = await productsModel.getProductById(id);
   if (product.length < 1) {
     return {

@@ -26,7 +26,7 @@ describe("Sales Model Tests", function () {
   it("should get all sales", async function () {
     sinon.stub(connection, "execute").resolves([sales]);
 
-    const response = await salesModel.getAllProducts();
+    const response = await salesModel.getAllSales();
     expect(response).to.be.deep.equal(sales);
   });
 

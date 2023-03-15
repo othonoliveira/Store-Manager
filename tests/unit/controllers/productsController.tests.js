@@ -49,7 +49,7 @@ describe("Product Controloer Tests", function () {
     ];
 
     sinon.stub(productsService, "getAllProducts").resolves(products);
-    await productsController.getAll(req, res);
+    await productsController.getAllProducts(req, res);
 
     expect(res.status).to.have.been.calledWith(200);
     expect(res.json).to.have.been.calledWith(products);

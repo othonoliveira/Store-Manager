@@ -17,13 +17,13 @@ describe("Product Service Tests", async function () {
       },
       status: 200,
     };
-    sinon.stub(productsModel, "getById").resolves(product);
+    sinon.stub(productsModel, "getProductById").resolves(product);
     const result = await productsService.getProductById({
       id: 1
     });
     expect(result).to.be.deep.equal(expected);
   });
-  
+
   it("should get all the products", async function () {
     const products = [
       {
@@ -46,9 +46,7 @@ describe("Product Service Tests", async function () {
       message: '"id" must be a number'
     };
     sinon.stub(productsModel, "getProductById").resolves(product);
-    const response = await productsService.getProductById({
-      id: "a"
-    });
+    const response = await productsService.getProductById({ id: 'a' });
     expect(response).to.be.deep.equal(product);
   });
 
@@ -75,7 +73,7 @@ describe("Product Service Tests", async function () {
       message: "Product not found"
     };
 
-    sinon.stub(productsModel, "getById").resolves([]);
+    sinon.stub(productsModel, "getProductById").resolves([]);
     const response = await productsService.getProductById({
       id: 1
     });

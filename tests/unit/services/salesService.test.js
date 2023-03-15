@@ -26,16 +26,18 @@ const sales = [
 ];
 
 describe("Sales Service Tests", function () {
-  it("should not create a sale with invalid product", async function () {
-    sinon.stub(salesModel, "itemsSold").resolves(sales[0]);
+  it("should not update with invalid product id", async function () {
+    const updateData = {
+      saleId: 1,
+      date: "2023-02-15T01:00:50.000Z",
+      quantity: 5,
+    };
 
-    sinon.stub(productsModel, "productIds").resolves([1]);
+    sinon.stub(salesModel, "getSaleById").resolves([1]);
 
-    sinon.stub(salesModel, "createSale").resolves(3);
-
-    const response = await salesService.create([sales[1]]);
+    const response = await salesService.updateSale(1, [updateData]);
     expect(response).to.be.deep.equal({
-      message: "Product not found"
+      message: '"productId" is required'
     });
   });
 
@@ -55,25 +57,22 @@ describe("Sales Service Tests", function () {
     expect(response).to.be.deep.equal(sales[0]);
   });
 
-  it("should create sale", async function () {
+  it("should not update with invalid sale info", async function () {
     const expected = {
-      id: 3,
-      itemsSold: [
-        {
-          productId: 1,
-          quantity: 7,
-        },
-      ],
+      saleId: 1,
+      date: "2023-02-15T01:00:50.000Z",
+      productId: 1,
+      quantity: 5,
     };
 
-    sinon.stub(salesModel, "itemsSold").resolves(sales[0]);
+    sinon.stub(salesModel, "updateSale").resolves(expected);
 
-    sinon.stub(productsModel, "productIds").resolves([1, 2]);
+    sinon.stub(salesModel, "getSaleById").resolves([]);
 
-    sinon.stub(salesModel, "createSale").resolves(3);
-
-    const response = await salesService.createSale([sales[1]]);
-    expect(response).to.be.deep.equal(expected);
+    const result = await salesService.updateSale(1, expected);
+    expect(result).to.be.deep.equal({
+      message: "Sale not found"
+    });
   });
 
   it("should delete a sale", async function () {
@@ -93,17 +92,26 @@ describe("Sales Service Tests", function () {
     });
   });
 
-  it("should not create a sale with missing information", async function () {
-    sinon.stub(salesModel, "itemsSold").resolves(sales[0]);
-
-    sinon.stub(productsModel, "productIds").resolves([1]);
-
-    sinon.stub(salesModel, "createSale").resolves(3);
-
-    const response = await salesService.create([sales[2]]);
-    expect(response).to.be.deep.equal({
-      message: '"productId" is required'
-    });
+  it("should update the sale", async function () {
+    const updateData = {
+      saleId: 1,
+      date: "2023-02-15T01:00:50.000Z",
+      productId: 1,
+      quantity: 5,
+    };
+    const expected = {
+      saleId: 1,
+      itemsUpdated: {
+        date: "2023-02-15T01:00:50.000Z",
+        productId: 1,
+        quantity: 5,
+        saleId: 1,
+      },
+    };
+    sinon.stub(salesModel, "updateSale").resolves(updateData);
+    sinon.stub(salesModel, "getSaleById").resolves([1]);
+    const result = await salesService.updateSale(1, updateData);
+    expect(result).to.be.deep.equal(expected);
   });
 
   afterEach(() => {
