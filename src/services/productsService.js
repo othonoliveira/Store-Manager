@@ -56,8 +56,10 @@ const updateProduct = async (productId, productName) => {
 };
 
 const deleteProduct = async (productId) => {
-  const productChecking = await getProductById({ productId });
-  if (productChecking.message) return productChecking;
+  const productChecking = await productsModel.getProductById(productId);
+  if (productChecking.length < 1) {
+    return { message: 'Product not found' };
+  }
 
   await productsModel.deleteProduct(productId);
 

@@ -81,7 +81,7 @@ const updateSale = async (saleId, updateInfo) => {
     };
   }
 
-  await salesModel.updateSales(saleId, updateInfo);
+  await salesModel.updateSale(saleId, updateInfo);
   return {
     saleId,
     itemsUpdated: updateInfo,

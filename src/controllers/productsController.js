@@ -55,11 +55,9 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   const { id } = req.params;
-  const { message } = await productsService.deleteProduct(id);
-  if (message) {
-    return res.status(404).json({
-      message: 'Product not found',
-    });
+  const message = await productsService.deleteProduct(id);
+  if (message !== 'done') {
+    return res.status(404).json(message);
   }
   return res.status(204).end();
 };
